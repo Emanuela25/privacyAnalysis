@@ -30,6 +30,7 @@ class MyAddon:
         #process get request url 
         if flow.request.method == "GET":
             url = flow.request.url
+            #check query field
             if flow.request.query:
                 print(url)
                 for q in flow.request.query:
