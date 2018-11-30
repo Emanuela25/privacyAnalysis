@@ -1,0 +1,8 @@
+1. Query field:
+sdkVersion
+sdkVersionName
+osversion
+gms
+deviceModel
+deviceMake
+language
