@@ -8,10 +8,9 @@ class MyAddon:
     def __init__(self,file):
         #construct HTTP response code
         self.http_code_ok = flowfilter.parse('~c 200')
+        
         current_directory = os.getcwd()
-        print(current_directory)
         self.folder_name = os.path.join(current_directory, 'logs', file)
-        print(self.folder_name)
         if not os.path.exists(self.folder_name):
                 os.makedirs(self.folder_name, 0o777)
             
