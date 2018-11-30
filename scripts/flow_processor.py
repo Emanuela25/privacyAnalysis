@@ -15,7 +15,7 @@ class MyAddon:
         if not os.path.exists(self.folder_name):
                 os.makedirs(self.folder_name, 0o777)
             
-        self.url_file_name = self.folder_name + '/' + file + '_url.txt'
+        self.host_file_name = self.folder_name + '/' + file + '_domains.txt'
         self.whiltlist = ['127.0.0.1']
         self.host_set = set()
         
@@ -25,7 +25,7 @@ class MyAddon:
         host = flow.request.host
         if not host in self.host_set and not host in self.whiltlist:
             self.host_set.add(host)
-            with open(self.url_file_name,'a+') as f:
+            with open(self.host_file_name,'a+') as f:
                 f.write(host + '\n')
         if flow.request.content:
             req_content = str(flow.request.content)
