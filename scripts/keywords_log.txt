@@ -6,3 +6,7 @@ gms
 deviceModel
 deviceMake
 language
+deviceOSVersion
+country
+isLimitAdTrackingEnabled
+
