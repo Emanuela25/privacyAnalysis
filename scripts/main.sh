@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#TODO: adb get permission lists of the apk and store it into log file
+
 packname="com.roblox.client"
 filename="${packname##*.}"
 #echo $filename

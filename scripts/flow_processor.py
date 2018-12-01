@@ -6,6 +6,8 @@ import json
 
 from mitmproxy import flowfilter, http, ctx
 
+###TODO: regular experssion of GPS coordinates
+
 class MyAddon:
     def __init__(self,file):
         #construct HTTP response code
