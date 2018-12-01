@@ -1,11 +1,11 @@
 #!/bin/sh
 
-packname="com.duolingo"
+packname="com.roblox.client"
 filename="${packname##*.}"
 #echo $filename
 mitmdump -s flow_processor.py $filename & 
 dump=$!
-monkey="$(adb shell monkey -p $packname --throttle 500 -v 100)"
+monkey="$(adb shell monkey -p $packname --throttle 500 -v 1000)"
 echo "${monkey}"
 kill -9 $dump
 
