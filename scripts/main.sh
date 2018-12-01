@@ -1,6 +1,6 @@
 #!/bin/sh
 
-packname="com.duolingo"
+packname="com.roblox.client"
 filename="${packname##*.}"
 #echo $filename
 mitmdump -s flow_processor.py $filename & 

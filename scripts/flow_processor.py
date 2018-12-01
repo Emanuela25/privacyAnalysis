@@ -26,7 +26,7 @@ class MyAddon:
         self.whiltlist = ['127.0.0.1', 'android.clients.google.com','play.googleapis.com']
         self.keywords = {'sdkVersion', 'sdkVersionName', 'osversion', 
         'gms', 'deviceModel', 'deviceMake', 'language', 'geoip_country', 
-        '$model', 'ssid', 'mac_address' }
+        '$model', 'ssid', 'mac_address', 'device', 'mobileDeviceId', 'cpu_abi', 'deviceData'}
     
     ###helper functions
     #determine if a string is a json object or not
@@ -42,16 +42,20 @@ class MyAddon:
         result = dict()
         if type(obj) is list:
             new_obj = obj[0]
+            if type(new_obj) is not dict:
+                result['should_be_list'] = " ".join(str(x) for x in obj)
+            else:
+                result = self.traverseJson(new_obj)
         else:
             new_obj = obj
-        result = self.traverseJson(new_obj)
+            result = self.traverseJson(new_obj)
         return result
     #dfs traverse a json object, store all key-value pair
     def traverseJson(self, obj):
         result = dict()
         for key in obj.keys():
             if type(obj[key]) is dict:
-                result.update(self.traverseJson(obj[key]))
+                    result.update(self.traverseJson(obj[key]))
             else:
                 value_str = ""
                 if type(obj[key]) is list:
@@ -111,25 +115,33 @@ class MyAddon:
                         url = flow.request.url
                         req_content_str = str(unquote(req_content[2:-1]))
                         if self.isJson(req_content_str):
-                            print(url)
-                            leaks = dict()
+                            #print(url, req_content_str)
                             cotent_obj = json.loads(req_content_str)
                             pairs = self.parseJson(cotent_obj)
-                            for k in pairs.keys():
-                                print(k + ' ' + pairs[k])
-                                if k in self.keywords:
-                                    if not k in leaks:
-                                        leaks[k] = {pairs[k]}
-                                    elif not value in leaks[key]:
-                                        leaks[key].add(value)
-                            if leaks:
-                                with open(self.post_leak_file_name,'a+') as f3:
-                                    f3.write('Json ' + url  + ": \n")
-                                    for key in leaks:
-                                        f3.write("\t" + key + ": ")
-                                        for value in leaks[key]:
-                                            f3.write(value + " ")
-                                        f3.write("\n")
+                            if 'should_be_list' in pairs.keys():
+                                for word in self.keywords:
+                                    if pairs['should_be_list'].find(word) != -1:
+                                        with open(self.post_leak_file_name,'a+') as f3:
+                                            f3.write('List ' + url  + ": \n")
+                                            f3.write(req_content_str +'\n')
+                                        break
+                            else:
+                                leaks = dict()
+                                for k in pairs.keys():
+                                    #print(k + ' ' + pairs[k])
+                                    if k in self.keywords:
+                                        if not k in leaks:
+                                            leaks[k] = {pairs[k]}
+                                        elif not value in leaks[key]:
+                                            leaks[key].add(value)
+                                if leaks:
+                                    with open(self.post_leak_file_name,'a+') as f3:
+                                        f3.write('Json ' + url  + ": \n")
+                                        for key in leaks:
+                                            f3.write("\t" + key + ": ")
+                                            for value in leaks[key]:
+                                                f3.write(value + " ")
+                                            f3.write("\n")
                         else:
                             for word in self.keywords:
                                 if req_content_str.find(word) != -1:
