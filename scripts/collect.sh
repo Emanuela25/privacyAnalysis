@@ -5,7 +5,7 @@
 packname="com.duolingo"
 filename="${packname##*.}"
 #echo $filename
-mitmdump -s flow_processor.py $filename & 
+mitmdump -s collect.py $filename & 
 dump=$!
 monkey="$(adb shell monkey -p $packname --throttle 500 -v 200)"
 echo "${monkey}"
