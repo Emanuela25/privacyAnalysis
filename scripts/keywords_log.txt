@@ -5,4 +5,12 @@ osversion
 gms
 deviceModel
 deviceMake
+
+#babybus learn shape#
 language
+deviceOSVersion
+country
+isLimitAdTrackingEnabled
+adgroup
+ip_address 
+gps_adid
