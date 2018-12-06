@@ -1,15 +1,20 @@
 #!/bin/sh
 
+#usage: sudo ./main.sh apkname appname
 packname=$1
-filename="${packname##*.}"
-#echo $filename
+filename=$2
+
+#set up mitmdump with our script 'flow_processor.py' loaded
 mitmdump -s flow_processor.py $filename & 
 dump=$!
+
+#run adb shell monkey command to generate random input of the app
 monkey="$(adb shell monkey -p $packname --throttle 500 -v 200)"
 echo "${monkey}"
+#when monkey finished, kill mitmdump 
 kill -9 $dump
 
-#TODO: adb get permission lists of the apk and store it into log file
+#use command 'aapt d permissions' command to get app's permission
 pack_path="$(adb shell pm list packages -f | grep $packname)"
 real_pack_path="$(echo $pack_path | cut -d'=' -f1 | cut -d':' -f2)"
 download="$(adb pull $real_pack_path tmp.apk)"
