@@ -14,3 +14,49 @@ isLimitAdTrackingEnabled
 adgroup
 ip_address 
 gps_adid
+
+2. youtube kids(com.google.android.apps.youtube.kids)
+ip
+csdk
+cbrand
+cmodel
+cosver
+cos
+
+3. starfall(not working)
+
+4. shopkins(com.moose.shopville)
+is_referrable
+google_advertising_id
+
+5. kids learn to read(com.intellijoy.android.reading.free)
+sdk_ver
+
+6. lunch box(Box-1/base.apk=com.budgestudios.HelloKittyLunchBox)
+AdvertisementHelper
+
+7. playkids
+is_referrable
+google_advertising_id
+
+8. puzzle(se.appfamily.superpuzzlefree)
+TaskCollectAdvertisingId_count
+
+9. palace pets (disneydigitalbooks.palacepetswhiskerhaven_goo)
+
+10. wonster(com.sx.wonsterwords)
+limit_ad_tracking
+carrier
+androidADID
+version_name
+os_name
+device_id
+session_id
+
+11. ready to build(com.budgestudios.ChuggingtonReadyToBuild)
+is_portrait
+
+
+
+
+
